@@ -1,0 +1,36 @@
+{
+  "name": "g_npm_lazy",
+  "version": "1.0.0",
+  "description": "A lazy local cache for npm",
+  "main": "./server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mirror",
+    "npm",
+    "registry"
+  ],
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/guanhuaizhi0708/g_npm_lazy.git"
+  },
+  "author": "ghz",
+  "license": "ISC",
+    "bin": {
+    "npm_lazy": "./bin/npm_lazy"
+  },
+    "dependencies": {
+    "bytes": "~2.4.0",
+    "file-fixture": "0.0.2",
+    "microee": "0.0.6",
+    "minilog": "~3.1.0",
+    "mixu_minimal": "0.0.1",
+    "mkdirp": "~0.5.1",
+    "request": "~2.79.0",
+    "yargs": "~6.6.0"
+  },
+    "devDependencies": {
+    "mocha": "*"
+  }
+}
