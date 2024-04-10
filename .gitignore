@@ -1,0 +1,6 @@
+/node_modules/
+/test/tmp/node_modules/
+db/
+test/tmp/*
+.settings
+.vscode

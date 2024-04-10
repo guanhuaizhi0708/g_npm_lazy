@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+var fs = require('fs'),
+    path = require('path'),
+    start = require('../server.js'),
+    opts = require('yargs')
+      .options({
+        'config': { alias: 'c', type: 'string' },
+        'help': { alias: 'h', type: 'boolean' },
+        'port': { alias: 'p' },
+        'host': { alias: 'H', type: 'string' },
+        'external-url': { alias: 'e', type: 'string' },
+        'remote-url': { alias: 'r', type: 'string' },
+        'init': { type: 'boolean' },
+        'show-config': { type: 'boolean' },
+        'version': { type: 'boolean' }
+      }),
+    argv = opts.parse(process.argv);
+
+if(argv['version'] || argv['v'] ) {
+  console.log(require('../package.json').version);
+  process.exit();
+}
+
+if(argv['init']) {
+  return fs.createReadStream(__dirname + '/../config.js')
+    .pipe(process.stdout)
+    .on('close', function () {
+      process.exit();
+    });
+}
+
+if(argv['help']) {
+  return fs.createReadStream(__dirname + '/usage.txt')
+    .pipe(process.stdout)
+    .on('close', function () {
+      process.exit();
+    });
+}
+
+var config = require('../config.js'),
+    configPath = path.normalize(__dirname + '/../config.js');
+
+if (argv['config']){
+  configPath = require.resolve(path.resolve(argv.config));
+  config = require(configPath);
+}
+
+if (argv.port) {
+  config.port = argv.port;
+}
+
+if (argv.host) {
+  config.host = argv.host;
+}
+
+if (argv['external-url']) {
+  config.externalUrl = argv['external-url'];
+}
+
+if (argv['remote-url']) {
+  config.remoteUrl = argv['remote-url'];
+}
+
+if (argv['show-config']) {
+  console.log(configPath, config);
+}
+
+start(config);
